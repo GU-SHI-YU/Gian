@@ -3,7 +3,13 @@ package com.gsy.parsing.visitor;
 import com.gsy.domain.Instruction;
 import com.gsy.domain.PrintVariable;
 import com.gsy.domain.Variable;
-import com.gsy.domain.VariableDeclaration;
+import com.gsy.domain.expression.Expression;
+import com.gsy.domain.scope.LocalVariable;
+import com.gsy.domain.scope.Scope;
+import com.gsy.domain.statement.PrintStatement;
+import com.gsy.domain.statement.Statement;
+import com.gsy.domain.statement.VariableDeclarationStatement;
+import com.gsy.domain.type.Type;
 import com.gsy.gian.GianBaseVisitor;
 import com.gsy.gian.GianParser;
 import lombok.AllArgsConstructor;
@@ -16,42 +22,31 @@ import java.util.Map;
 import java.util.Queue;
 
 @Getter
-public class StatementVisitor extends GianBaseVisitor<Instruction> {
+@AllArgsConstructor
+public class StatementVisitor extends GianBaseVisitor<Statement> {
 
+    private final Scope scope;
     private final Queue<Instruction> instructionQueue = new ArrayDeque<>();
     private final Map<String, Variable> variableMap = new HashMap<>();
 
     @Override
-    public Instruction visitVariable(GianParser.VariableContext ctx) {
+    public Statement visitPrintStatement(GianParser.PrintStatementContext ctx) {
 
-        final TerminalNode varName = ctx.ID();
-        final GianParser.ValueContext varValue = ctx.value();
-        final int varType = varValue.getStart().getType();
-        final int varIndex = variableMap.size();
-        final String varTextValue = varValue.getText();
-        Variable var = new Variable(varIndex, varType, varTextValue);
-        variableMap.put(varName.getText(), var);
-        VariableDeclaration variableDeclaration = new VariableDeclaration(var);
-        instructionQueue.add(variableDeclaration);
-        logVariableDeclarationStatementFound(varName, varValue);
-        return variableDeclaration;
+        GianParser.ExpressionContext expressionContext = ctx.expression();
+        ExpressionVisitor expressionVisitor = new ExpressionVisitor(scope);
+        Expression expression = expressionContext.accept(expressionVisitor);
+        return new PrintStatement(expression);
     }
 
     @Override
-    public Instruction visitPrint(GianParser.PrintContext ctx) {
+    public Statement visitVariableDeclaration(GianParser.VariableDeclarationContext ctx) {
 
-        final TerminalNode varName = ctx.ID();
-        final boolean printedVarNotDeclared = !variableMap.containsKey(varName.getText());
-        if (printedVarNotDeclared) {
-            final String errorFormat = "ERROR: You are trying to print var '%s' which has not been declared!.";
-            System.err.printf(errorFormat, varName.getText());
-            return null;
-        }
-        final Variable variable = variableMap.get(varName.getText());
-        PrintVariable printVariable = new PrintVariable(variable);
-        instructionQueue.add(printVariable);
-        logPrintStatementFound(varName, variable);
-        return printVariable;
+        GianParser.ExpressionContext expressionContext = ctx.expression();
+        ExpressionVisitor expressionVisitor = new ExpressionVisitor(scope);
+        Expression expression = expressionContext.accept(expressionVisitor);
+        String name = ctx.name().getText();
+        scope.addLocalVariable(new LocalVariable(name, expression.getType()));
+        return new VariableDeclarationStatement(name, expression);
     }
 
     private void logVariableDeclarationStatementFound(TerminalNode varName, GianParser.ValueContext varValue) {

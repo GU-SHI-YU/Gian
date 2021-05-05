@@ -1,7 +1,7 @@
 package com.gsy.bytecodegeneration;
 
-import com.gsy.domain.ClassDeclaration;
-import com.gsy.domain.CompilationUnit;
+import com.gsy.domain.global.ClassDeclaration;
+import com.gsy.domain.global.CompilationUnit;
 
 public class BytecodeGenerator{
 

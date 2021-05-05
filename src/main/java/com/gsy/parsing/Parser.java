@@ -1,6 +1,6 @@
 package com.gsy.parsing;
 
-import com.gsy.domain.CompilationUnit;
+import com.gsy.domain.global.CompilationUnit;
 import com.gsy.gian.GianLexer;
 import com.gsy.gian.GianParser;
 import com.gsy.parsing.visitor.CompilationUnitVisitor;

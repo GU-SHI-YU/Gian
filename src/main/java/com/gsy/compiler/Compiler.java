@@ -1,6 +1,7 @@
 package com.gsy.compiler;
 
-import com.gsy.domain.CompilationUnit;
+import com.gsy.bytecodegeneration.BytecodeGenerator;
+import com.gsy.domain.global.CompilationUnit;
 import com.gsy.parsing.Parser;
 import com.gsy.validation.ARGUMENT_ERRORS;
 import org.apache.commons.io.IOUtils;
@@ -31,7 +32,8 @@ public class Compiler {
 
     private static void saveBytecodeToClassFile(CompilationUnit compilationUnit) throws Exception {
 
-        final byte[] bytecode = compilationUnit.getByteCode();
+        BytecodeGenerator bytecodeGenerator = new BytecodeGenerator();
+        byte[] bytecode = bytecodeGenerator.generate(compilationUnit);
         String className = compilationUnit.getClassName();
         OutputStream outputStream = new FileOutputStream(className + ".class");
         IOUtils.write(bytecode, outputStream);

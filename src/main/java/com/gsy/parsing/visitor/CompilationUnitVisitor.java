@@ -1,7 +1,7 @@
 package com.gsy.parsing.visitor;
 
-import com.gsy.domain.ClassDeclaration;
-import com.gsy.domain.CompilationUnit;
+import com.gsy.domain.global.ClassDeclaration;
+import com.gsy.domain.global.CompilationUnit;
 import com.gsy.gian.GianBaseVisitor;
 import com.gsy.gian.GianParser;
 
