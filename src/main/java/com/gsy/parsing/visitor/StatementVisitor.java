@@ -1,8 +1,12 @@
-package com.gsy.parsing;
+package com.gsy.parsing.visitor;
 
-import com.gsy.domain.*;
-import com.gsy.gian.GianBaseListener;
+import com.gsy.domain.Instruction;
+import com.gsy.domain.PrintVariable;
+import com.gsy.domain.Variable;
+import com.gsy.domain.VariableDeclaration;
+import com.gsy.gian.GianBaseVisitor;
 import com.gsy.gian.GianParser;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.antlr.v4.runtime.tree.TerminalNode;
 
@@ -12,15 +16,13 @@ import java.util.Map;
 import java.util.Queue;
 
 @Getter
-public class GianTreeWalkListener extends GianBaseListener {
+public class StatementVisitor extends GianBaseVisitor<Instruction> {
 
-    Queue<Instruction> instructionQueue = new ArrayDeque<>();
-    Map<String, Variable> variableMap = new HashMap<>();
-    private CompilationUnit compilationUnit;
-    private ClassDeclaration classDeclaration;
+    private final Queue<Instruction> instructionQueue = new ArrayDeque<>();
+    private final Map<String, Variable> variableMap = new HashMap<>();
 
     @Override
-    public void exitVariable(GianParser.VariableContext ctx) {
+    public Instruction visitVariable(GianParser.VariableContext ctx) {
 
         final TerminalNode varName = ctx.ID();
         final GianParser.ValueContext varValue = ctx.value();
@@ -29,36 +31,27 @@ public class GianTreeWalkListener extends GianBaseListener {
         final String varTextValue = varValue.getText();
         Variable var = new Variable(varIndex, varType, varTextValue);
         variableMap.put(varName.getText(), var);
-        instructionQueue.add(new VariableDeclaration(var));
+        VariableDeclaration variableDeclaration = new VariableDeclaration(var);
+        instructionQueue.add(variableDeclaration);
         logVariableDeclarationStatementFound(varName, varValue);
+        return variableDeclaration;
     }
 
     @Override
-    public void exitPrint(GianParser.PrintContext ctx) {
+    public Instruction visitPrint(GianParser.PrintContext ctx) {
 
         final TerminalNode varName = ctx.ID();
         final boolean printedVarNotDeclared = !variableMap.containsKey(varName.getText());
         if (printedVarNotDeclared) {
             final String errorFormat = "ERROR: You are trying to print var '%s' which has not been declared!.";
             System.err.printf(errorFormat, varName.getText());
-            return;
+            return null;
         }
         final Variable variable = variableMap.get(varName.getText());
-        instructionQueue.add(new PrintVariable(variable));
+        PrintVariable printVariable = new PrintVariable(variable);
+        instructionQueue.add(printVariable);
         logPrintStatementFound(varName, variable);
-    }
-
-    @Override
-    public void exitCompilationUnit(GianParser.CompilationUnitContext ctx) {
-
-        compilationUnit = new CompilationUnit(classDeclaration);
-    }
-
-    @Override
-    public void exitClassDeclaration(GianParser.ClassDeclarationContext ctx) {
-
-        final String name = ctx.className().getText();
-        classDeclaration = new ClassDeclaration(instructionQueue, name);
+        return printVariable;
     }
 
     private void logVariableDeclarationStatementFound(TerminalNode varName, GianParser.ValueContext varValue) {
@@ -74,5 +67,4 @@ public class GianTreeWalkListener extends GianBaseListener {
         final String format = "OK: You instructed to print variable '%s' which has value of '%s' at line '%s'.'\n";
         System.out.printf(format, variable.getID(), variable.getValue(), line);
     }
-
 }

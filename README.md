@@ -1,2 +1,2 @@
 # Gian
-Gian is a toy languange based on JVM.
+Gian is a toy language based on JVM.

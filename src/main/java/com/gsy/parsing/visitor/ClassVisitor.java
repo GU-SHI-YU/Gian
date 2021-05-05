@@ -10,6 +10,8 @@ public class ClassVisitor extends GianBaseVisitor<ClassDeclaration> {
     public ClassDeclaration visitClassDeclaration(GianParser.ClassDeclarationContext ctx) {
 
         String name = ctx.className().getText();
-        return new ClassDeclaration(null, name);
+        StatementVisitor statementVisitor = new StatementVisitor();
+        ctx.classBody().accept(statementVisitor);
+        return new ClassDeclaration(statementVisitor.getInstructionQueue(), name);
     }
 }
