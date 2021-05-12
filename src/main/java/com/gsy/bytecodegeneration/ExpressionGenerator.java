@@ -1,6 +1,7 @@
 package com.gsy.bytecodegeneration;
 
 import com.gsy.domain.expression.*;
+import com.gsy.domain.math.*;
 import com.gsy.domain.scope.LocalVariable;
 import com.gsy.domain.scope.Scope;
 import com.gsy.domain.type.BuiltInType;
@@ -20,25 +21,9 @@ import java.util.Optional;
 public class ExpressionGenerator {
 
     private final MethodVisitor methodVisitor;
+    private final Scope scope;
 
-    public void generate(Expression expression, Scope scope) {
-
-        if (expression instanceof VarReference) {
-            VarReference varReference = (VarReference) expression;
-            generate(varReference, scope);
-        } else if (expression instanceof Value) {
-            Value value = (Value) expression;
-            generate(value, scope);
-        } else if (expression instanceof FunctionCall) {
-            FunctionCall functionCall = (FunctionCall) expression;
-            generate(functionCall, scope);
-        } else if (expression instanceof FunctionParameter) {
-            FunctionParameter parameter = (FunctionParameter) expression;
-            generate(parameter, scope);
-        }
-    }
-
-    public void generate(VarReference varReference, Scope scope) {
+    public void generate(VarReference varReference) {
 
         String varName = varReference.getVarName();
         int index = scope.getLocalVariableIndex(varName);
@@ -51,7 +36,7 @@ public class ExpressionGenerator {
         }
     }
 
-    public void generate(FunctionParameter parameter, Scope scope) {
+    public void generate(FunctionParameter parameter) {
 
         Type type = parameter.getType();
         int index = scope.getLocalVariableIndex(parameter.getName());
@@ -63,7 +48,7 @@ public class ExpressionGenerator {
     }
 
 
-    public void generate(Value value, Scope scope) {
+    public void generate(Value value) {
 
         Type type = value.getType();
         String stringValue = value.getValue();
@@ -75,15 +60,47 @@ public class ExpressionGenerator {
         }
     }
 
-    public void generate(FunctionCall functionCall, Scope scope) {
+    public void generate(FunctionCall functionCall) {
 
         Collection<Expression> parameters = functionCall.getParameters();
-        parameters.forEach(param -> generate(param, scope));
+        parameters.forEach(parameter -> parameter.accept(this));
         Type owner = functionCall.getOwner().orElse(new ClassType(scope.getClassName()));
         String methodDescriptor = getFunctionDescriptor(functionCall, scope);
         String ownerDescriptor = owner.getInternalName();
         String functionName = functionCall.getName();
         methodVisitor.visitMethodInsn(Opcodes.INVOKESTATIC, ownerDescriptor, functionName, methodDescriptor, false);
+    }
+
+    public void generate(Addition addition) {
+
+        evaluateArithmeticComponents(addition);
+        methodVisitor.visitInsn(Opcodes.IADD);
+    }
+
+    public void generate(Subtraction subtraction) {
+
+        evaluateArithmeticComponents(subtraction);
+        methodVisitor.visitInsn(Opcodes.ISUB);
+    }
+
+    public void generate(Multiplication multiplication) {
+
+        evaluateArithmeticComponents(multiplication);
+        methodVisitor.visitInsn(Opcodes.IMUL);
+    }
+
+    public void generate(Division division) {
+
+        evaluateArithmeticComponents(division);
+        methodVisitor.visitInsn(Opcodes.IDIV);
+    }
+
+    private void evaluateArithmeticComponents(ArithmeticExpression arithmeticExpression) {
+
+        Expression leftExpression = arithmeticExpression.getLeftExpression();
+        Expression rightExpression = arithmeticExpression.getRightExpression();
+        leftExpression.accept(this);
+        rightExpression.accept(this);
     }
 
     public String getFunctionDescriptor(FunctionCall functionCall, Scope scope) {

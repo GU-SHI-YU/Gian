@@ -1,4 +1,4 @@
-// Generated from D:/Study/Gian/Grammar\Gian.g4 by ANTLR 4.9.1
+// Generated from D:/Study/CompilePrinciple/Gian/Grammar\Gian.g4 by ANTLR 4.9.1
 package com.gsy.gian;
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
@@ -98,15 +98,15 @@ public interface GianListener extends ParseTreeListener {
 	 */
 	void exitFunctionArgument(GianParser.FunctionArgumentContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GianParser#functionParamdefaultValue}.
+	 * Enter a parse tree produced by {@link GianParser#functionParamDefaultValue}.
 	 * @param ctx the parse tree
 	 */
-	void enterFunctionParamdefaultValue(GianParser.FunctionParamdefaultValueContext ctx);
+	void enterFunctionParamDefaultValue(GianParser.FunctionParamDefaultValueContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GianParser#functionParamdefaultValue}.
+	 * Exit a parse tree produced by {@link GianParser#functionParamDefaultValue}.
 	 * @param ctx the parse tree
 	 */
-	void exitFunctionParamdefaultValue(GianParser.FunctionParamdefaultValueContext ctx);
+	void exitFunctionParamDefaultValue(GianParser.FunctionParamDefaultValueContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GianParser#type}.
 	 * @param ctx the parse tree
@@ -198,15 +198,89 @@ public interface GianListener extends ParseTreeListener {
 	 */
 	void exitExpressionList(GianParser.ExpressionListContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link GianParser#expression}.
+	 * Enter a parse tree produced by the {@code VarRef}
+	 * labeled alternative in {@link GianParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpression(GianParser.ExpressionContext ctx);
+	void enterVarRef(GianParser.VarRefContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link GianParser#expression}.
+	 * Exit a parse tree produced by the {@code VarRef}
+	 * labeled alternative in {@link GianParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpression(GianParser.ExpressionContext ctx);
+	void exitVarRef(GianParser.VarRefContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterAdd(GianParser.AddContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitAdd(GianParser.AddContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code ValueExpr}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterValueExpr(GianParser.ValueExprContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code ValueExpr}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitValueExpr(GianParser.ValueExprContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Divide}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterDivide(GianParser.DivideContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Divide}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitDivide(GianParser.DivideContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code FunCall}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterFunCall(GianParser.FunCallContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code FunCall}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitFunCall(GianParser.FunCallContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Multiply}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterMultiply(GianParser.MultiplyContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Multiply}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitMultiply(GianParser.MultiplyContext ctx);
+	/**
+	 * Enter a parse tree produced by the {@code Subtract}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void enterSubtract(GianParser.SubtractContext ctx);
+	/**
+	 * Exit a parse tree produced by the {@code Subtract}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 */
+	void exitSubtract(GianParser.SubtractContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link GianParser#varReference}.
 	 * @param ctx the parse tree

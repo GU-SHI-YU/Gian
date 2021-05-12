@@ -8,8 +8,8 @@ classBody :  function* ;
 function : functionDeclaration '{' (blockStatement)* '}' ;
 functionDeclaration : (type)? functionName '('  (functionArgument)* (',' functionArgument)* ')' ;
 functionName : ID ;
-functionArgument : type ID functionParamdefaultValue? ;
-functionParamdefaultValue : '=' expression ;
+functionArgument : type ID functionParamDefaultValue? ;
+functionParamDefaultValue : '=' expression ;
 type : primitiveType
      | classType ;
 
@@ -33,9 +33,18 @@ printStatement : PRINT expression ;
 functionCall : functionName '('expressionList ')';
 name : ID ;
 expressionList : (expression)* (',' expression)* ;
-expression : varReference
-           | value
-           | functionCall ;
+expression : varReference #VarRef
+           | value #ValueExpr
+           | functionCall #FunCall
+           | '(' expression '*' expression ')' #Multiply
+           | expression '*' expression #Multiply
+           | '(' expression '/' expression ')' #Divide
+           | expression '/' expression #Divide
+           | '(' expression '+' expression ')' #Add
+           | expression '+' expression #Add
+           | '(' expression '-' expression ')' #Subtract
+           | expression '-' expression #Subtract
+           ;
 varReference : ID ;
 value : NUMBER
       | STRING ;

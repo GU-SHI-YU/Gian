@@ -1,6 +1,9 @@
 package com.gsy.domain.expression;
 
+import com.gsy.bytecodegeneration.ExpressionGenerator;
+import com.gsy.bytecodegeneration.StatementGenerator;
 import com.gsy.domain.scope.FunctionSignature;
+import com.gsy.domain.statement.Statement;
 import com.gsy.domain.type.Type;
 import lombok.Getter;
 
@@ -9,7 +12,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 @Getter
-public class FunctionCall extends Expression {
+public class FunctionCall extends Expression implements Statement {
 
     private final Type owner;
     private final FunctionSignature signature;
@@ -35,5 +38,17 @@ public class FunctionCall extends Expression {
     public String getName() {
 
         return signature.getName();
+    }
+
+    @Override
+    public void accept(ExpressionGenerator generator) {
+
+        generator.generate(this);
+    }
+
+    @Override
+    public void accept(StatementGenerator generator) {
+
+        generator.generate(this);
     }
 }

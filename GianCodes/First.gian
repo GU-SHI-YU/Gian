@@ -1,18 +1,12 @@
 First {
-    void main(string[] args) {
-        var x = "Hello function call"
-        var y = 1
-        foo(x, y)
-        bar()
-    }
+        void main (string[] args) {
+            var result = (2+3)*4+5+5*2/(5-3)
+            var x = 1
+            print "(2+3)*4+5+5*2/(5-3) = "
+            printResult(result)
+        }
 
-    void foo(string a, int b) {
-        print a
-        print b
-    }
-
-    void bar() {
-        var a = 2
-        print a
-    }
+        void printResult(int x) {
+            print x
+        }
 }

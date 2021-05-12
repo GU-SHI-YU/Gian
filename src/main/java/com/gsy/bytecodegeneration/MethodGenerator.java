@@ -25,8 +25,8 @@ public class MethodGenerator {
         int access = Opcodes.ACC_PUBLIC + Opcodes.ACC_STATIC;
         MethodVisitor methodVisitor = classWriter.visitMethod(access, name, descriptor, null, null);
         methodVisitor.visitCode();
-        StatementGenerator statementGenerator = new StatementGenerator(methodVisitor);
-        instructions.forEach(instruction -> statementGenerator.generate(instruction, scope));
+        StatementGenerator statementGenerator = new StatementGenerator(methodVisitor, scope);
+        instructions.forEach(instruction -> instruction.accept(statementGenerator));
         methodVisitor.visitInsn(Opcodes.RETURN);
         methodVisitor.visitMaxs(-1, -1);
         methodVisitor.visitEnd();

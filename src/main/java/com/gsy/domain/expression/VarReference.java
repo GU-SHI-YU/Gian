@@ -1,5 +1,6 @@
 package com.gsy.domain.expression;
 
+import com.gsy.bytecodegeneration.ExpressionGenerator;
 import com.gsy.domain.type.Type;
 import lombok.Getter;
 
@@ -10,5 +11,11 @@ public class VarReference extends Expression {
     public VarReference(String varName, Type type) {
         super(type);
         this.varName = varName;
+    }
+
+    @Override
+    public void accept(ExpressionGenerator generator) {
+
+        generator.generate(this);
     }
 }

@@ -33,10 +33,8 @@ public class FunctionVisitor extends GianBaseVisitor<Function> {
                 .peek(param -> scope.addLocalVariable(new LocalVariable(param.getName(), param.getType())))
                 .collect(Collectors.toList());
         StatementVisitor statementVisitor = new StatementVisitor(scope);
-        ExpressionVisitor expressionVisitor = new ExpressionVisitor(scope);
-        CompositeVisitor<Statement> compositeVisitor = new CompositeVisitor<>(statementVisitor, expressionVisitor);
         List<Statement> instructions = ctx.blockStatement().stream()
-                .map(compositeVisitor::accept)
+                .map(block -> block.accept(statementVisitor))
                 .collect(Collectors.toList());
         return new Function(scope, name, returnType, arguments, instructions);
     }

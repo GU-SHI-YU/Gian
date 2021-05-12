@@ -1,4 +1,4 @@
-// Generated from D:/Study/Gian/Grammar\Gian.g4 by ANTLR 4.9.1
+// Generated from D:/Study/CompilePrinciple/Gian/Grammar\Gian.g4 by ANTLR 4.9.1
 package com.gsy.gian;
 
 import org.antlr.v4.runtime.ParserRuleContext;
@@ -124,13 +124,13 @@ public class GianBaseListener implements GianListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterFunctionParamdefaultValue(GianParser.FunctionParamdefaultValueContext ctx) { }
+	@Override public void enterFunctionParamDefaultValue(GianParser.FunctionParamDefaultValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitFunctionParamdefaultValue(GianParser.FunctionParamdefaultValueContext ctx) { }
+	@Override public void exitFunctionParamDefaultValue(GianParser.FunctionParamDefaultValueContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
@@ -244,13 +244,85 @@ public class GianBaseListener implements GianListener {
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void enterExpression(GianParser.ExpressionContext ctx) { }
+	@Override public void enterVarRef(GianParser.VarRefContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *
 	 * <p>The default implementation does nothing.</p>
 	 */
-	@Override public void exitExpression(GianParser.ExpressionContext ctx) { }
+	@Override public void exitVarRef(GianParser.VarRefContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterAdd(GianParser.AddContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitAdd(GianParser.AddContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterValueExpr(GianParser.ValueExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitValueExpr(GianParser.ValueExprContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterDivide(GianParser.DivideContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitDivide(GianParser.DivideContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterFunCall(GianParser.FunCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitFunCall(GianParser.FunCallContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterMultiply(GianParser.MultiplyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitMultiply(GianParser.MultiplyContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void enterSubtract(GianParser.SubtractContext ctx) { }
+	/**
+	 * {@inheritDoc}
+	 *
+	 * <p>The default implementation does nothing.</p>
+	 */
+	@Override public void exitSubtract(GianParser.SubtractContext ctx) { }
 	/**
 	 * {@inheritDoc}
 	 *

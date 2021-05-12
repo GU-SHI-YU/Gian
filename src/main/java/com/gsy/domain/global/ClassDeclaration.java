@@ -1,6 +1,5 @@
 package com.gsy.domain.global;
 
-import com.gsy.domain.Instruction;
 import com.gsy.domain.clazz.Function;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

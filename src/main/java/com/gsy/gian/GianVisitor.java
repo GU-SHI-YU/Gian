@@ -1,4 +1,4 @@
-// Generated from D:/Study/Gian/Grammar\Gian.g4 by ANTLR 4.9.1
+// Generated from D:/Study/CompilePrinciple/Gian/Grammar\Gian.g4 by ANTLR 4.9.1
 package com.gsy.gian;
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
@@ -65,11 +65,11 @@ public interface GianVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitFunctionArgument(GianParser.FunctionArgumentContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GianParser#functionParamdefaultValue}.
+	 * Visit a parse tree produced by {@link GianParser#functionParamDefaultValue}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitFunctionParamdefaultValue(GianParser.FunctionParamdefaultValueContext ctx);
+	T visitFunctionParamDefaultValue(GianParser.FunctionParamDefaultValueContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GianParser#type}.
 	 * @param ctx the parse tree
@@ -125,11 +125,54 @@ public interface GianVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpressionList(GianParser.ExpressionListContext ctx);
 	/**
-	 * Visit a parse tree produced by {@link GianParser#expression}.
+	 * Visit a parse tree produced by the {@code VarRef}
+	 * labeled alternative in {@link GianParser#expression}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
 	 */
-	T visitExpression(GianParser.ExpressionContext ctx);
+	T visitVarRef(GianParser.VarRefContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Add}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitAdd(GianParser.AddContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code ValueExpr}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitValueExpr(GianParser.ValueExprContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Divide}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitDivide(GianParser.DivideContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code FunCall}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitFunCall(GianParser.FunCallContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Multiply}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitMultiply(GianParser.MultiplyContext ctx);
+	/**
+	 * Visit a parse tree produced by the {@code Subtract}
+	 * labeled alternative in {@link GianParser#expression}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitSubtract(GianParser.SubtractContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link GianParser#varReference}.
 	 * @param ctx the parse tree

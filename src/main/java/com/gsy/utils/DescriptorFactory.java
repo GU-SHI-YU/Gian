@@ -13,7 +13,7 @@ public class DescriptorFactory {
     public static String getMethodDescriptor(Function function) {
 
         Collection<FunctionParameter> arguments = function.getArguments();
-        Type returnType = function.getType();
+        Type returnType = function.getReturnType();
         return getMethodDescriptor(arguments, returnType);
     }
 

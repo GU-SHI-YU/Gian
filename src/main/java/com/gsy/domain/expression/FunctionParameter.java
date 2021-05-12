@@ -1,5 +1,6 @@
 package com.gsy.domain.expression;
 
+import com.gsy.bytecodegeneration.ExpressionGenerator;
 import com.gsy.domain.type.Type;
 import lombok.Getter;
 
@@ -12,5 +13,11 @@ public class FunctionParameter extends Expression {
 
         super(type);
         this.name = name;
+    }
+
+    @Override
+    public void accept(ExpressionGenerator generator) {
+
+        generator.generate(this);
     }
 }

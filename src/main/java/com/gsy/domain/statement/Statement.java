@@ -1,4 +1,8 @@
 package com.gsy.domain.statement;
 
-public interface Statement {
+import com.gsy.bytecodegeneration.StatementGenerator;
+
+public interface Statement extends Node {
+
+    void accept(StatementGenerator generator);
 }

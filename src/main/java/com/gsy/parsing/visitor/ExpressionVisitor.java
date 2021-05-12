@@ -1,6 +1,10 @@
 package com.gsy.parsing.visitor;
 
 import com.gsy.domain.expression.*;
+import com.gsy.domain.math.Addition;
+import com.gsy.domain.math.Division;
+import com.gsy.domain.math.Multiplication;
+import com.gsy.domain.math.Subtraction;
 import com.gsy.domain.scope.FunctionSignature;
 import com.gsy.domain.scope.LocalVariable;
 import com.gsy.domain.scope.Scope;
@@ -44,5 +48,45 @@ public class ExpressionVisitor extends GianBaseVisitor<Expression> {
                 .map(expressionContext -> expressionContext.accept(new ExpressionVisitor(scope)))
                 .collect(Collectors.toList());
         return new FunctionCall(signature, arguments, null);
+    }
+
+    @Override
+    public Expression visitAdd(GianParser.AddContext ctx) {
+
+        GianParser.ExpressionContext leftExpressionCtx = ctx.expression(0);
+        GianParser.ExpressionContext rightExpressionCtx = ctx.expression(1);
+        Expression leftExpression = leftExpressionCtx.accept(this);
+        Expression rightExpression = rightExpressionCtx.accept(this);
+        return new Addition(leftExpression, rightExpression);
+    }
+
+    @Override
+    public Expression visitSubtract(GianParser.SubtractContext ctx) {
+
+        GianParser.ExpressionContext leftExpressionCtx = ctx.expression(0);
+        GianParser.ExpressionContext rightExpressionCtx = ctx.expression(1);
+        Expression leftExpression = leftExpressionCtx.accept(this);
+        Expression rightExpression = rightExpressionCtx.accept(this);
+        return new Subtraction(leftExpression, rightExpression);
+    }
+
+    @Override
+    public Expression visitMultiply(GianParser.MultiplyContext ctx) {
+
+        GianParser.ExpressionContext leftExpressionCtx = ctx.expression(0);
+        GianParser.ExpressionContext rightExpressionCtx = ctx.expression(1);
+        Expression leftExpression = leftExpressionCtx.accept(this);
+        Expression rightExpression = rightExpressionCtx.accept(this);
+        return new Multiplication(leftExpression, rightExpression);
+    }
+
+    @Override
+    public Expression visitDivide(GianParser.DivideContext ctx) {
+
+        GianParser.ExpressionContext leftExpressionCtx = ctx.expression(0);
+        GianParser.ExpressionContext rightExpressionCtx = ctx.expression(1);
+        Expression leftExpression = leftExpressionCtx.accept(this);
+        Expression rightExpression = rightExpressionCtx.accept(this);
+        return new Division(leftExpression, rightExpression);
     }
 }
